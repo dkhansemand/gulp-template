@@ -15,7 +15,6 @@ var gulp = require('gulp'),
 	cached = require('gulp-cached'),
 	sassPartialsImported = require('gulp-sass-partials-imported'),
 	inject = require('gulp-inject'),
-	cdnizer = require('gulp-cdnizer'),
 // other variables
 	scss_dir = './src/assets/stylesheets/sass/';
 
@@ -104,7 +103,7 @@ gulp.task('default', ['imagemin', 'htmlpage', 'htmlpageViews', 'jshint', 'script
 	gulp.watch('src/assets/views/*.html', ['htmlpageViews']);
 
 	// watch for JS changes
-	gulp.watch('src/assets/scripts/*.js', ['scripts', 'jshint']);
+	gulp.watch('src/assets/scripts/**/*.js', ['scripts', 'jshint']);
 
 	// watch for SASS changes
 	gulp.watch('src/assets/stylesheets/sass/*.scss', ['sass']);
