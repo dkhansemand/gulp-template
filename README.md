@@ -2,5 +2,5 @@
 Gulp template for future projects
 
 
-#Installing
+#Installation
 npm install
