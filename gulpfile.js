@@ -14,7 +14,8 @@ var gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	cached = require('gulp-cached'),
 	sassPartialsImported = require('gulp-sass-partials-imported'),
-
+	inject = require('gulp-inject'),
+	cdnizer = require('gulp-cdnizer'),
 // other variables
 	scss_dir = './src/assets/stylesheets/sass/';
 
@@ -83,13 +84,22 @@ gulp.task('css', () => {
 		.pipe(gulp.dest('./build/assets/stylesheets'));
 });
 
+//inject method still in dev, not included in watch
+gulp.task('inject',  () => {
+  var target = gulp.src('./src/index.html');
+  var sources = gulp.src(['./src/assets/scripts/script.js', './src/assets/stylesheets/**/*.css'], {read: false});
+  
+	  target.pipe(inject(sources, {relative: true}))
+    		.pipe(gulp.dest('./src'));
+});
+
 // default gulp task
 gulp.task('default', ['imagemin', 'htmlpage', 'htmlpageViews', 'jshint', 'scripts', 'sass', 'css'], () => {
 	// watch for image-changes
 	gulp.watch('src/assets/media/**/*', ['imagemin']);
 	
 	// watch for HTML changes
-	gulp.watch('src/*.html', ['htmlpage']);
+	gulp.watch('src/*.html', ['inject', 'htmlpage']);
 
 	gulp.watch('src/assets/views/*.html', ['htmlpageViews']);
 
